@@ -172,7 +172,27 @@ storiesOf("Appointment", module)
   .add('Confirm', () => <Confirm message="Delete the appointment?" onConfirm={action('onConfirm')} onCancel={action('onCancel')} />)
   .add('Saving', () => <Status message="Saving" />)
   .add('Deleting', () => <Status message="Deleting" />)
-  .add('Error Saving', () => <Error message="Could not save appointment" onClose={action('onClose')} />)
-  .add('Error Deleting', () => <Error message="Could not delete appointment" onClose={action('onClose')} />)
-  .add('Create', () => <Form interviewers={interviewers} />)
-  .add('Edit', () => <Form interviewers={interviewers} />);
+  .add('Error Saving', () => (
+    <Error
+      message="Could not save appointment"
+      onClose={action('onClose')} 
+    />))
+  .add('Error Deleting', () => (
+    <Error 
+      message="Could not delete appointment" 
+      onClose={action('onClose')} 
+    />))
+  .add('Create', () => (
+    <Form 
+      interviewers={interviewers} 
+      onSave={action('onSave')} 
+      onCancel={action('onCancel')} 
+      />))
+      .add('Edit', () => (
+        <Form 
+        interviewers={interviewers} 
+        onSave={action('onSave')} 
+        onCancel={action('onCancel')} 
+        interviewer={1} 
+        name="Lydia Miller-Jones" 
+    />));
