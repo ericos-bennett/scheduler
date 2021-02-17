@@ -4,7 +4,7 @@ import 'components/InterviewerList.scss';
 
 import InterviewerListItem from 'components/InterviewerListItem';
 
-const InterviewerList = (props) => {
+const InterviewerList = props => {
 
   const { interviewers, value, onChange } = props;
 
