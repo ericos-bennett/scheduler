@@ -13,7 +13,7 @@ const Application = props => {
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
-    appointments: [],
+    appointments: {},
     interviewers: {}
   });
 
@@ -30,20 +30,15 @@ const Application = props => {
     
       const [daysRes, appointmentsRes, interviewersRes] = responses;
   
-      const daysData = daysRes.data;
-      const appointmentsObj = appointmentsRes.data;
-      const interviewersData = interviewersRes.data;
-
-      const apptsData = [];
-      for (let appt in appointmentsObj) {
-        apptsData.push(appointmentsObj[appt]);
-      }
+      const days = daysRes.data;
+      const appointments = appointmentsRes.data;
+      const interviewers = interviewersRes.data;
 
       setState(current => ({
         ...current, 
-        days: daysData, 
-        appointments: apptsData,
-        interviewers: interviewersData
+        days, 
+        appointments,
+        interviewers
       }));
 
     });

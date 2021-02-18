@@ -1,6 +1,6 @@
 import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 
-const stateObj = {
+const state = {
   days: [
     {
       id: 1,
@@ -42,12 +42,12 @@ const stateObj = {
   }
 };
 
-const apptsData = [];
-for (let appt in stateObj.appointments) {
-  apptsData.push(stateObj.appointments[appt]);
-}
+// const apptsData = [];
+// for (let appt in stateObj.appointments) {
+//   apptsData.push(stateObj.appointments[appt]);
+// }
 
-const state = {...stateObj, appointments: apptsData}
+// const state = {...stateObj, appointments: apptsData}
 
 test("getAppointmentsForDay returns an array", () => {
   const result = getAppointmentsForDay(state, "Monday");
@@ -61,8 +61,8 @@ test("getAppointmentsForDay returns an array with a length matching the number o
 
 test("getAppointmentsForDay returns an array containing the correct appointment objects", () => {
   const [first, second] = getAppointmentsForDay(state, "Tuesday");
-  expect(first).toEqual(stateObj.appointments["4"]);
-  expect(second).toEqual(stateObj.appointments["5"]);
+  expect(first).toEqual(state.appointments["4"]);
+  expect(second).toEqual(state.appointments["5"]);
 });
 
 test("getAppointmentsForDay returns an empty array when the days data is empty", () => {
@@ -77,7 +77,7 @@ test("getAppointmentsForDay returns an empty array when the day is not found", (
 
 
 test("getInterview returns an object with the interviewer data", () => {
-  const result = getInterview(state, stateObj.appointments["3"].interview);
+  const result = getInterview(state, state.appointments["3"].interview);
   expect(result).toEqual(
     expect.objectContaining({
       student: expect.any(String),
@@ -91,6 +91,6 @@ test("getInterview returns an object with the interviewer data", () => {
 });
 
 test("getInterview returns null if no interview is booked", () => {
-  const result = getInterview(state, stateObj.appointments["2"].interview);
+  const result = getInterview(state, state.appointments["2"].interview);
   expect(result).toBeNull();
 });

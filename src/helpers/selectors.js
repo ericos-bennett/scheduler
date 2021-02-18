@@ -6,8 +6,7 @@ const getAppointmentsForDay = (state, weekday) => {
   const apptIds = dayObj[0].appointments;
 
   const appts = apptIds
-    .map(apptId => state.appointments
-      .find(appt => appt.id === apptId));
+    .map(apptId => state.appointments[apptId]);
 
   return appts;
 };
