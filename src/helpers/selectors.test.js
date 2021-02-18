@@ -1,6 +1,6 @@
-import { getAppointmentsForDay } from "helpers/selectors";
+import getAppointmentsForDay from "helpers/selectors";
 
-const state = {
+const stateObj = {
   days: [
     {
       id: 1,
@@ -30,6 +30,13 @@ const state = {
   }
 };
 
+const apptsData = [];
+for (let appt in stateObj.appointments) {
+  apptsData.push(stateObj.appointments[appt]);
+}
+
+const state = {...stateObj, appointments: apptsData}
+
 test("getAppointmentsForDay returns an array", () => {
   const result = getAppointmentsForDay(state, "Monday");
   expect(Array.isArray(result)).toBe(true);
@@ -42,8 +49,8 @@ test("getAppointmentsForDay returns an array with a length matching the number o
 
 test("getAppointmentsForDay returns an array containing the correct appointment objects", () => {
   const [first, second] = getAppointmentsForDay(state, "Tuesday");
-  expect(first).toEqual(state.appointments["4"]);
-  expect(second).toEqual(state.appointments["5"]);
+  expect(first).toEqual(stateObj.appointments["4"]);
+  expect(second).toEqual(stateObj.appointments["5"]);
 });
 
 test("getAppointmentsForDay returns an empty array when the days data is empty", () => {
