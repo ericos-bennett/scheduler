@@ -12,4 +12,13 @@ const getAppointmentsForDay = (state, weekday) => {
   return appts;
 };
 
-export default getAppointmentsForDay;
+const getInterview = (state, interview) => {
+  if (interview) {
+    const thisInterviewer = state.interviewers[interview.interviewer]
+    return {...interview, interviewer: thisInterviewer};
+  } else {
+    return null;
+  }
+};
+
+export { getAppointmentsForDay, getInterview };

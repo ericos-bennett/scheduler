@@ -6,30 +6,33 @@ import "components/Application.scss";
 import DayList from 'components/DayList';
 import Appointment from 'components/Appointment';
 
-import getAppointmentsForDay from 'helpers/selectors';
+import { getAppointmentsForDay, getInterview } from 'helpers/selectors';
 
 const Application = props => {
   
   const [state, setState] = useState({
     day: 'Monday',
     days: [],
-    appointments: []
+    appointments: [],
+    interviewers: {}
   });
 
   const setDay = day => setState({ ...state, day });
 
   useEffect(() => {
     
-    const daysRequest = axios.get('/api/days');
-    const appointmentsRequest = axios.get('/api/appointments');
+    const daysReq = axios.get('/api/days');
+    const appointmentsReq = axios.get('/api/appointments');
+    const interviewersReq = axios.get('/api/interviewers');
     
-    Promise.all([daysRequest, appointmentsRequest])
+    Promise.all([daysReq, appointmentsReq, interviewersReq])
       .then((responses) => {
     
-      const [daysResponse, appointmentsRespose] = responses;
+      const [daysRes, appointmentsRes, interviewersRes] = responses;
   
-      const daysData = daysResponse.data;
-      const appointmentsObj = appointmentsRespose.data;
+      const daysData = daysRes.data;
+      const appointmentsObj = appointmentsRes.data;
+      const interviewersData = interviewersRes.data;
 
       const apptsData = [];
       for (let appt in appointmentsObj) {
@@ -39,7 +42,8 @@ const Application = props => {
       setState(current => ({
         ...current, 
         days: daysData, 
-        appointments: apptsData
+        appointments: apptsData,
+        interviewers: interviewersData
       }));
 
     });
@@ -49,8 +53,15 @@ const Application = props => {
   const appointmentsForDay = getAppointmentsForDay(state, state.day);
 
   const appointmentList = appointmentsForDay.map(appt => {
+    const interview = getInterview(state, appt.interview);
+
     return (
-      <Appointment key={appt.id} {...appt} />
+      <Appointment
+        key={appt.id}
+        id={appt.id}
+        time={appt.time}
+        interview={interview}
+      />
     );
   });
   
