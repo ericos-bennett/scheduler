@@ -6,9 +6,9 @@ import "components/Application.scss";
 import DayList from 'components/DayList';
 import Appointment from 'components/Appointment';
 
-import { getAppointmentsForDay, getInterview } from 'helpers/selectors';
+import { getAppointmentsForDay, getInterviewersForDay, getInterview } from 'helpers/selectors';
 
-const Application = props => {
+const Application = () => {
   
   const [state, setState] = useState({
     day: 'Monday',
@@ -44,8 +44,24 @@ const Application = props => {
     });
 
   }, [])
+  
+  const bookInterview = (id, interview) => {
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({ ...state, appointments });
+  }
 
   const appointmentsForDay = getAppointmentsForDay(state, state.day);
+  const interviewersForDay = getInterviewersForDay(state, state.day);
 
   const appointmentList = appointmentsForDay.map(appt => {
     const interview = getInterview(state, appt.interview);
@@ -56,10 +72,12 @@ const Application = props => {
         id={appt.id}
         time={appt.time}
         interview={interview}
+        interviewers={interviewersForDay}
+        bookInterview={bookInterview}
       />
     );
   });
-  
+
   return (
     <main className="layout">
       <section className="sidebar">
