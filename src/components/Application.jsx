@@ -45,6 +45,7 @@ const Application = () => {
 
   }, [])
   
+  // Book Interview
   const bookInterview = (id, interview) => {
 
     const appointment = {
@@ -65,6 +66,11 @@ const Application = () => {
     )
   }
 
+  // Delete Interview
+  const cancelInterview = (id) => {
+    console.log(`delete interview ${id}`);
+  };
+
   const appointmentsForDay = getAppointmentsForDay(state, state.day);
   const interviewersForDay = getInterviewersForDay(state, state.day);
 
@@ -79,6 +85,7 @@ const Application = () => {
         interview={interview}
         interviewers={interviewersForDay}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });

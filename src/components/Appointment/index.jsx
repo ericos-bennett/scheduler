@@ -16,7 +16,7 @@ const SAVING = "SAVING";
 
 const Appointment = props => {
 
-  const { id, time, interview, interviewers, bookInterview } = props;
+  const { id, time, interview, interviewers, bookInterview, cancelInterview } = props;
 
   const initial = interview ? SHOW : EMPTY;
   const { mode, transition, back } = useVisualMode(initial);
@@ -32,6 +32,13 @@ const Appointment = props => {
     bookInterview(id, interview)
       .then(() => transition(SHOW));
   }
+
+  const cancel = () => {
+    // transition(DELETE);
+
+    cancelInterview(id)
+
+  };
  
   return (
     <article className="appointment">
@@ -41,6 +48,7 @@ const Appointment = props => {
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
+          onDelete={cancel}
         />
       )}
       {mode === CREATE && (
