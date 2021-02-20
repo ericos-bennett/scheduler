@@ -8,12 +8,14 @@ import Show from 'components/Appointment/Show';
 import Empty from 'components/Appointment/Empty';
 import Status from 'components/Appointment/Status';
 import Form from './Form';
+import Confirm from './Confirm';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETE = "DELETE"
+const CONFIRM = "CONFIRM";
 
 const Appointment = props => {
 
@@ -41,7 +43,7 @@ const Appointment = props => {
       .then(() => transition(EMPTY))
 
   };
- 
+
   return (
     <article className="appointment">
       <Header time={time} />
@@ -50,7 +52,7 @@ const Appointment = props => {
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
-          onDelete={cancel}
+          onDelete={() => transition(CONFIRM)}
         />
       )}
       {mode === CREATE && (
@@ -65,6 +67,13 @@ const Appointment = props => {
       )}
       {mode === DELETE && (
         <Status message="Deleting..." />
+      )}
+      {mode === CONFIRM && (
+        <Confirm 
+          message="Are you sure you want to delete this?" 
+          onCancel={() => back()} 
+          onConfirm={cancel}
+        />
       )}
     </article>
   );
