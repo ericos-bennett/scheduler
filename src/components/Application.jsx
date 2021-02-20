@@ -64,11 +64,27 @@ const Application = () => {
     })
       .catch(err => console.log(err))
     )
-  }
+  };
 
   // Delete Interview
   const cancelInterview = (id) => {
-    console.log(`delete interview ${id}`);
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return (axios.delete(`/api/appointments/${id}`)
+      .then(() => {
+        setState({ ...state, appointments });
+    })
+      .catch(err => console.log(err))
+    )
   };
 
   const appointmentsForDay = getAppointmentsForDay(state, state.day);

@@ -13,6 +13,7 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETE = "DELETE"
 
 const Appointment = props => {
 
@@ -34,9 +35,10 @@ const Appointment = props => {
   }
 
   const cancel = () => {
-    // transition(DELETE);
+    transition(DELETE);
 
     cancelInterview(id)
+      .then(() => transition(EMPTY))
 
   };
  
@@ -60,6 +62,9 @@ const Appointment = props => {
       )}
       {mode === SAVING && (
         <Status message="Saving..." />
+      )}
+      {mode === DELETE && (
+        <Status message="Deleting..." />
       )}
     </article>
   );
