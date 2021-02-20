@@ -1,16 +1,18 @@
 import React from 'react';
 
 import 'components/Appointment/styles.scss';
+import useVisualMode from 'hooks/useVisualMode';
 
 import Header from 'components/Appointment/Header';
 import Show from 'components/Appointment/Show';
 import Empty from 'components/Appointment/Empty';
-
-import useVisualMode from 'hooks/useVisualMode';
+import Status from 'components/Appointment/Status';
 import Form from './Form';
+
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 const Appointment = props => {
 
@@ -20,13 +22,15 @@ const Appointment = props => {
   const { mode, transition, back } = useVisualMode(initial);
 
   const save = (name, interviewer) => {
+    transition(SAVING);
+    
     const interview = {
       student: name,
       interviewer
     };
 
-    bookInterview(id, interview);
-    transition(SHOW);
+    bookInterview(id, interview)
+      .then(() => transition(SHOW));
   }
  
   return (
@@ -45,6 +49,9 @@ const Appointment = props => {
           onCancel={() => back()}
           onSave={save}
         />
+      )}
+      {mode === SAVING && (
+        <Status message="Saving..." />
       )}
     </article>
   );
