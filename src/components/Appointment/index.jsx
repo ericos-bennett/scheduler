@@ -1,14 +1,15 @@
 import React from 'react';
 
-import 'components/Appointment/styles.scss';
+import './styles.scss';
 import useVisualMode from 'hooks/useVisualMode';
 
-import Header from 'components/Appointment/Header';
-import Show from 'components/Appointment/Show';
-import Empty from 'components/Appointment/Empty';
-import Status from 'components/Appointment/Status';
+import Header from './Header';
+import Show from './Show';
+import Empty from './Empty';
+import Status from './Status';
 import Form from './Form';
 import Confirm from './Confirm';
+import Error from './Error';
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -17,6 +18,8 @@ const SAVING = "SAVING";
 const DELETE = "DELETE"
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 const Appointment = props => {
 
@@ -34,13 +37,15 @@ const Appointment = props => {
     };
 
     bookInterview(id, interview)
-      .then(() => transition(SHOW));
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true));
   }
 
   const cancel = () => {
-    transition(DELETE);
+    transition(DELETE, true);
     cancelInterview(id)
       .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true));
   };
 
   return (
@@ -82,6 +87,18 @@ const Appointment = props => {
           message="Are you sure you want to delete this?" 
           onCancel={() => back()} 
           onConfirm={cancel}
+        />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error
+          message="Save problem!"
+          onClose={() => back()}
+        />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error
+          message="Delete problem!"
+          onClose={() => back()}
         />
       )}
     </article>

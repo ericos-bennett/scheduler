@@ -8,16 +8,18 @@ const useVisualMode = initial => {
 
   const transition = (newMode, replace) => {
     if (replace) {
-      const newHistory = [...history];
-      newHistory[newHistory.length - 1] = newMode;
-      setHistory(newHistory);
+      setHistory((history) => {   
+        const newHistory = [...history];
+        newHistory[newHistory.length - 1] = newMode;
+        return newHistory
+      });
     } else {
-      setHistory([...history, newMode]);
+      setHistory(current => [...current, newMode]);
     }
   };
 
   const back = () => {
-    if (history.length > 1) setHistory(history.slice(0, -1));
+    if (history.length > 1) setHistory(history => history.slice(0, -1));
   };
 
   return { mode, transition, back };
