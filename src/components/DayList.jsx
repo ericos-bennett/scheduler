@@ -9,7 +9,7 @@ const DayList = (props) => {
       <DayListItem 
         key={index}
         name={day.name} 
-        spots={day.spots} 
+        spots={day.spots}
         selected={day.name === props.day}
         setDay={props.setDay}  
       />
