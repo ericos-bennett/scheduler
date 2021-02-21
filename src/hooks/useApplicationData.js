@@ -12,7 +12,27 @@ const useApplicationData = () => {
 
   const setDay = day => setState({ ...state, day });
 
-  
+  const updateSpots = (day, days, appointments) => {
+
+    const newDays = [ ...days ];
+
+    const dayObj = newDays.find(d => d.name === day);
+    const dayObjIndex = newDays.findIndex(d => d.name === day);
+
+    const apptIds = dayObj.appointments;
+    
+    let spots = 0;
+    for (const id of apptIds) {
+      const appointment = appointments[id];
+      if (!appointment.interview) spots++;
+    }
+
+    const newDayObj = { ...dayObj, spots };
+
+    newDays.splice(dayObjIndex, 1, newDayObj);
+
+    return newDays;
+  }
 
   useEffect(() => {
     
@@ -50,7 +70,13 @@ const useApplicationData = () => {
 
     return (axios.put(`/api/appointments/${id}`, appointment)
       .then(() => axios.get('/api/appointments'))
-      .then(appts => setState({ ...state, appointments: appts.data }))
+      .then(appts => {
+        const days = updateSpots(
+          state.day, 
+          state.days, 
+          appts.data)
+        setState({ ...state, appointments: appts.data, days: days })
+      })
     )
   };
 
@@ -59,7 +85,13 @@ const useApplicationData = () => {
 
     return (axios.delete(`/api/appointments/${id}`)
       .then(() => axios.get('/api/appointments'))
-      .then(appts => setState({ ...state, appointments: appts.data }))
+      .then(appts => {
+        const days = updateSpots(
+          state.day, 
+          state.days, 
+          appts.data)
+        setState({ ...state, appointments: appts.data, days: days })
+      })
     )
   };
 
