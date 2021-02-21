@@ -68,14 +68,15 @@ const useApplicationData = () => {
       interview: { ...interview }
     };
 
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
     return (axios.put(`/api/appointments/${id}`, appointment)
-      .then(() => axios.get('/api/appointments'))
-      .then(appts => {
-        const days = updateSpots(
-          state.day, 
-          state.days, 
-          appts.data)
-        setState({ ...state, appointments: appts.data, days: days })
+      .then(() => {
+        const days = updateSpots(state.day, state.days, appointments);
+        setState({ ...state, appointments, days })
       })
     )
   };
@@ -83,14 +84,20 @@ const useApplicationData = () => {
   // Cancel Interview
   const cancelInterview = (id) => {
 
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
     return (axios.delete(`/api/appointments/${id}`)
-      .then(() => axios.get('/api/appointments'))
-      .then(appts => {
-        const days = updateSpots(
-          state.day, 
-          state.days, 
-          appts.data)
-        setState({ ...state, appointments: appts.data, days: days })
+      .then(() => {
+        const days = updateSpots(state.day, state.days, appointments);
+        setState({ ...state, appointments, days })
       })
     )
   };
