@@ -4,13 +4,11 @@
   "private": true,
   "proxy": "http://localhost:8001",
   "dependencies": {
-    "@types/jest": "^26.0.20",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-hooks-testing-library": "^0.6.0",
     "react-scripts": "3.0.0"
   },
   "scripts": {
@@ -44,10 +42,12 @@
     "@storybook/react": "^5.0.10",
     "@testing-library/jest-dom": "^4.0.0",
     "@testing-library/react": "^8.0.7",
+    "@types/jest": "^26.0.20",
     "babel-loader": "^8.0.5",
     "eslint-plugin-cypress": "^2.11.2",
     "node-sass": "^4.14.0",
     "prop-types": "^15.7.2",
+    "react-hooks-testing-library": "^0.6.0",
     "react-test-renderer": "^16.9.0"
   },
   "jest": {
