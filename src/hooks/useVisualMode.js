@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+/* The useVisualMode hook manages the conditional transitions between variants of the Appointment component */
+
 const useVisualMode = initial => {
 
   const [history, setHistory] = useState([initial]);

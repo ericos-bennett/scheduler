@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+/* The useApplicationData hook manages all of the application's state and its axios connections to the database API */
+
 const useApplicationData = () => {
 
   const [state, setState] = useState({
