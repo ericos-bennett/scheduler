@@ -2,13 +2,40 @@
 
 Scheduler is a single-page app made with React. Users can book, edit, and delete appointments with interviewers on a selection of timeslots over 5 weekdays.
 
-Built to learn React best practices, the app is also thoroughly tested with Jest and Cypress.
+Built to learn React hooks and best practices, the app is also thoroughly tested with Jest and Cypress.
+
+##### Component Tree
+!["Component Tree"](./docs/component-tree.png)
+
+##### Flow Chart
+!["Flow Chart"](./docs/flow-chart.png)
 
 ## Screenshots
 
-!["Register Page"](./docs/register_page.png)
-!["URLs Page"](./docs/urls_page.png)
-!["URL Edit Page"](./docs/url_edit_page.png)
+##### Default Schedule View
+!["Default Schedule View"](./docs/default-schedule-view.png)
+
+##### Create or Edit an Interview
+!["Edit Interview"](./docs/edit-interview.png)
+
+##### Confirm Before Deleting
+!["Delete Confirmation"](./docs/delete-confirmation.png)
+
+## Stack
+
+##### Front-End
+- React
+- SASS
+- Axios
+
+##### Back-End
+- Node.js
+- Express
+- PostgreSQL
+
+##### Testing
+  - Jest
+  - Cypress
 
 ## Getting Started
 
@@ -18,13 +45,3 @@ Built to learn React best practices, the app is also thoroughly tested with Jest
 - View the Jest coverage report with `npm run coverage`
 - Open the Storybook Visual Testbed with `npm run storybook`
 - Run Cypress E2E tests with `npm run cypress`
-
-## Dependencies
-
-- Node.js
-- Express
-- EJS
-- bcrypt
-- body-parser
-- cookie-session
-- method-override
