@@ -2,7 +2,7 @@
 
 Scheduler is a single-page app made with React. Users can book, edit, and delete appointments with interviewers on a selection of timeslots over 5 weekdays.
 
-Built to learn React hooks and best practices, the app is also thoroughly tested with Jest and Cypress.
+Built to learn React hooks and best practices, the app is also thoroughly tested with Jest and Cypress. Scheduler connects to the [Scheduler API](https://github.com/ericos-bennett/scheduler-api) and has a WebSocket connected [Scheduler Dashboard](https://github.com/ericos-bennett/scheduler-dashboard).
 
 ##### Component Tree
 !["Component Tree"](./docs/component-tree.png)
